@@ -22,7 +22,7 @@ public class PlayerManeger : MonoBehaviour
     public int attacks_per_second = 2;
     float next_attack = 0;
     [Header("Animator")]
-    public Animator animator;
+    [SerializeField] Animator animator;
 
     void Start()
     {
@@ -53,7 +53,7 @@ public class PlayerManeger : MonoBehaviour
         {
             if (Input.GetButtonDown("attack"))
             {
-                Attack();
+                //Attack();
                 next_attack = Time.time + 1f / (float)(attacks_per_second);
                 animator.SetTrigger("attack");
             }
@@ -67,13 +67,13 @@ public class PlayerManeger : MonoBehaviour
         characterController.Move(move_direction * Time.fixedDeltaTime, false, jumping);
         jumping = false;
     }
-    public void OnLanding()
+    public void OnLand()
     {
         animator.SetBool("IsJumping", false);
     }
     void Attack()
     {
-
+        Debug.Log("attacking");
         var enemies = Physics2D.OverlapCircleAll(sword_point.position, sword_range, enemy_leyers);
         foreach (var enemy in enemies)
         {
